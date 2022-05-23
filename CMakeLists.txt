@@ -1,20 +1,8 @@
 cmake_minimum_required(VERSION 3.0.0)
 project(Triangle VERSION 0.1.0)
+set(PROJECT_OWNER "Matteo Cavagnino")
 
-
-#################### EXTERNAL LIBRARIES (INSTALLED / VCPKG) #####
-
-
-#################### END OF EXTERNAL LIBRARIES ##################
-
-
-#################### OPTIONS ####################################
-
-#################### END OF OPTIONS #############################
-
-
-
-add_executable(Triangle main.cpp)
+add_subdirectory(src)
 
 
 #################### SUBMODULES #################################
@@ -38,47 +26,5 @@ if(NOT EXISTS "${PROJECT_SOURCE_DIR}/external/glfw/CMakeLists.txt")
     message(FATAL_ERROR "The submodules were not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 endif()
 
-#################### END OF SUMBMODULES #########################
-
-#################### LIBRARIES #########################
-
 add_subdirectory(external/glfw)
-
-target_include_directories(${PROJECT_NAME}  # Specifies include directories to use when compiling a given target.   
-    PUBLIC external/glfw/include
-    ${EXTRA_INCLUDE_DIRS}
-)
-
-target_link_directories(${PROJECT_NAME}     # Specifies the paths in which the linker should search for libraries when linking a given target. CMake V3.13+
-    PUBLIC external/glfw/src
-    ${EXTRA_LIB_DIRS}
-)
-
-target_link_libraries(${PROJECT_NAME}       # Specify libraries or flags to use when linking a given target and/or its dependents.
-    glfw
-    ${EXTRA_LINKS}
-)
-
-################### END OF LIBRARIES ###################
-
-################### INSTALLATION #######################
-
-#CMake install
-install(TARGETS ${PROJECT_NAME} DESTINATION bin)                                    # exe file goes to bin filder
-install(FILES "${PROJECT_BINARY_DIR}/ImGUITestConfig.h" DESTINATION include)        # config file goes to include folder
-
-# To install the app run cmake install and add the bin folder to the env var
-# C:\Program Files (x86)\ImGUITest\bin
-
-
-# CPack install
-include (InstallRequiredSystemLibraries)
-set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/Licence.txt")
-set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
-set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
-set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
-include(CPack)
-
-# To create the cpack installer just run build\cpack.bat
-# To install run the .exe file generated in build folder
-################### END OF INSTALLATION ################
+#################### END OF SUMBMODULES #########################
