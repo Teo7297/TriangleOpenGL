@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GLFW/glfw3.h"
+#include "glad.h"
 #include <TriangleConfig.h>
 #ifdef USE_LOGGER
         #include "logger.h"

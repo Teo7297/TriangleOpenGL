@@ -6,8 +6,9 @@ endif()
 
 include_directories(${CMAKE_CURRENT_BINARY_DIR}/../)
 
-target_include_directories(${PROJECT_NAME}
-    PUBLIC external/glfw/include
+target_include_directories(${PROJECT_NAME} PUBLIC 
+    external/glfw/include
+    external/glad/include
     # ${EXTRA_INCLUDE_DIRS}
 )
 
@@ -18,5 +19,6 @@ target_include_directories(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME} PUBLIC
     glfw
+    glad
     # ${EXTRA_LINKS}
 )
