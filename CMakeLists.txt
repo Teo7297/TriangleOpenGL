@@ -28,3 +28,25 @@ endif()
 
 add_subdirectory(external/glfw)
 #################### END OF SUMBMODULES #########################
+
+
+################### INSTALLATION ################################
+
+#CMake install
+install(TARGETS ${PROJECT_NAME} DESTINATION bin)                                    # exe file goes to bin filder
+install(FILES "${PROJECT_BINARY_DIR}/src/TriangleConfig.h" DESTINATION include)        # config file goes to include folder
+
+# To install the app run cmake install and add the bin folder to the env var
+# C:\Program Files (x86)\ImGUITest\bin
+
+
+# CPack install
+include (InstallRequiredSystemLibraries)
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/Licence.txt")
+set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
+set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
+set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+include(CPack)
+
+# To install run the .exe file generated in build folder
+################### END OF INSTALLATION #########################

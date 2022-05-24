@@ -1,43 +1,40 @@
-#include <iostream>
-#include "GLFW/glfw3.h"
-#include "glad.h"
-#include <TriangleConfig.h>
-#ifdef USE_LOGGER
-        #include "logger.h"
-#endif
-
-void logStuff()
-{   
-    #ifdef USE_LOGGER
-        Logger::logProjectInfo();
-        Logger::log("ciao mamma");
-        Logger::warning("yuuuuuuuuuuhuh");
-        Logger::error("This  is a random error");
-    #else
-        std::cout << "Logger is not available!\n";
-    #endif
-}
+#pragma once
 
 
-int main(int, char **)
+#include <GLFW/glfw3.h>
+
+
+int main(void)
 {
-    logStuff();
-    
-
     GLFWwindow* window;
 
-    if( !glfwInit() )
+    /* Initialize the library */
+    if (!glfwInit())
+        return -1;
+
+    /* Create a windowed mode window and its OpenGL context */
+    window = glfwCreateWindow(640, 480, "Hello World", NULL, NULL);
+    if (!window)
     {
-        fprintf( stderr, "Failed to initialize GLFW\n" );
-        exit( EXIT_FAILURE );
+        glfwTerminate();
+        return -1;
     }
 
-    window = glfwCreateWindow( 300, 300, "Test", NULL, NULL );
+    /* Make the window's context current */
+    glfwMakeContextCurrent(window);
 
-    while( !glfwWindowShouldClose(window) )
+    /* Loop until the user closes the window */
+    while (!glfwWindowShouldClose(window))
     {
-        // Swap buffers
+        /* Render here */
+        glClear(GL_COLOR_BUFFER_BIT);
+
+        /* Swap front and back buffers */
         glfwSwapBuffers(window);
+
+        /* Poll for and process events */
         glfwPollEvents();
     }
+
+    glfwTerminate();
 }
