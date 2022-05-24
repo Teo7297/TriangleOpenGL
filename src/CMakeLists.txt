@@ -8,3 +8,4 @@ if(USE_LOGGER)
 endif()
 
 add_subdirectory(glad)
+add_subdirectory(Linmath)

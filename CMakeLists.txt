@@ -4,7 +4,6 @@ set(PROJECT_OWNER "Matteo Cavagnino")
 
 add_subdirectory(src)
 
-
 #################### SUBMODULES #################################
 
 find_package(Git QUIET)
@@ -39,13 +38,37 @@ install(FILES "${PROJECT_BINARY_DIR}/src/TriangleConfig.h" DESTINATION include) 
 # To install the app run cmake install and add the bin folder to the env var
 # C:\Program Files (x86)\ImGUITest\bin
 
-
+message(STATUS "helll ${CMake_SOURCE_DIR}")
 # CPack install
 include (InstallRequiredSystemLibraries)
+
+
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/Licence.txt")
+set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
 set(CPACK_PACKAGE_VERSION_MAJOR "${PROJECT_VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${PROJECT_VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${PROJECT_VERSION_PATCH}")
+set(CPACK_PACKAGE_NAME "Triangle")
+set(CPACK_PACKAGE_VENDOR "Teoware")
+
+if(WIN32 AND NOT UNIX)
+    #set(CPACK_PACKAGE_ICON "${CMake_SOURCE_DIR}\\\\utilities\\\\icon.ico") #! not working, icon is set in the add_executable second parameter
+    set(CPACK_NSIS_INSTALLED_ICON_NAME "bin\\\\${PROJECT_NAME}.exe")
+    set(CPACK_NSIS_DISPLAY_NAME "${PROJECT_NAME} ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}")
+    set(CPACK_NSIS_MODIFY_PATH ON)
+
+endif()
+
+set(CPACK_NSIS_CREATE_ICONS_EXTRA
+    "CreateShortCut '$SMPROGRAMS\\\\$STARTMENU_FOLDER\\\\Triangle.lnk' '$INSTDIR\\\\bin\\\\${PROJECT_NAME}.exe'"
+)
+set(CPACK_NSIS_DELETE_ICONS_EXTRA
+    "Delete '$SMPROGRAMS\\\\$START_MENU\\\\Triangle.lnk'"
+)
+set(CPACK_PACKAGE_EXECUTABLES "Triangle" "Triangle")
+set(CPACK_CREATE_DESKTOP_LINKS "Triangle")
+
+
 include(CPack)
 
 # To install run the .exe file generated in build folder
