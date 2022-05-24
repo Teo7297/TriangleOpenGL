@@ -1,4 +1,6 @@
 #pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup")
+#pragma warning( disable : 4244 )
+
 #include <GLFW/glfw3.h>
 #include <chrono>
 #include <ctime>
